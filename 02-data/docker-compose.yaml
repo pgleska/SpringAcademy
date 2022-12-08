@@ -1,0 +1,22 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    hostname: sa-db
+    container_name: sa-db
+    volumes:
+      - ./docker/db/sa.sql:/docker-entrypoint-initdb.d/sa.sql:ro
+      - ./docker/db/dump/:/opt/dump/
+    environment:
+      - MYSQL_ROOT_PASSWORD=Test123?
+      - MYSQL_DATABASE=spring-academy     
+      - MYSQL_USER=sa
+      - MYSQL_PASSWORD=mysecretpassword 
+    networks:
+      - spring-academy
+    ports:
+     - 33060:3306
+     
+networks:
+  spring-academy:
