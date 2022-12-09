@@ -6,6 +6,31 @@ CREATE TABLE `student` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
 
+DROP TABLE IF EXISTS `teacher`;
+CREATE TABLE `teacher` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `last_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,      
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `course`;
+CREATE TABLE `course` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `teacher_id` int NOT NULL,       
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (teacher_id) REFERENCES teacher(id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_bin;
+
+DROP TABLE IF EXISTS `student_course`;
+CREATE TABLE `student_course` (
+  `student_id` int NOT NULL,
+  `course_id` int NOT NULL,
+  PRIMARY KEY (`student_id`, `course_id`)
+) ENGINE=InnoDB;
+
+
 INSERT INTO `student`(`email`, `student_id`) VALUES
 ('jan.kowalski@student.put.poznan.pl', 150010),
 ('anna.nowak@student.put.poznan.pl', 150020),
@@ -33,3 +58,23 @@ INSERT INTO `student`(`email`, `student_id`) VALUES
 ('sylwia.nowak@student.put.poznan.pl', 150041),
 ('mariusz.kowalski@student.put.poznan.pl', 150032),
 ('marta.nowak@student.put.poznan.pl', 150042);
+
+INSERT INTO `teacher`(`first_name`, `last_name`) VALUES
+('John', 'Doe');
+
+INSERT INTO `course`(`name`, `teacher_id`) VALUES
+('Cybersecurity', 1),
+('Artificial Intelligence', 1),
+('Digital Forensics', 1);
+
+INSERT INTO `student_course`(`student_id`, `course_id`) VALUES
+(1, 1),
+(3, 1),
+(5, 1),
+(7, 1),
+(10, 1),
+(12, 1),
+(14, 1),
+(16, 1),
+(18, 1);
+

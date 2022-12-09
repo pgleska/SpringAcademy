@@ -1,13 +1,17 @@
 package com.github.pgleska.SpringAcademy2.entities;
 
+import java.util.Set;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 @Entity
-@Table(name = "student")
 public class Student {
 
 	@Id
@@ -17,6 +21,13 @@ public class Student {
 	private String email;
 	
 	private Integer studentId;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "student_course", 
+		joinColumns = @JoinColumn(referencedColumnName = "id", name = "student_id"),
+		inverseJoinColumns = @JoinColumn(referencedColumnName = "id", name = "course_id")
+	)
+	private Set<Course> courses;
 	
 	public Integer getId() {
 		return id;
